@@ -6,6 +6,8 @@ Created on Tue May 30 10:53:57 2023
 
 @description:   This script takes in reads in an image and displays it. It adds 
                 an f(x) = Ax + B offset to each colomn of pixels. 
+                
+                The noisy image is saved as a bin file.
 """
 
 import numpy as np 
@@ -68,6 +70,7 @@ def add_noise(image_path):
          logging.error("An error occurred during image conversion: %s", e)
         
     return None
+
 def convert_image_to_bin_file(img_array):
     """
     @docstring: 
@@ -109,7 +112,7 @@ def get_file_name():
 
 def get_output_image_path(output_file_name):
     
-    return r"image_binaries\\"+ output_file_name +".bin"
+    return r"C:\github\image_processing_python\image_bin_files\\"+ output_file_name +".bin"
 
 def main(): 
     

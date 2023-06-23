@@ -93,14 +93,15 @@ def get_file_name():
     
 def get_image_dimensions():
     
+    #specify the image dimensions here
     
-    #specify the image dimensions here 
-    width = 4537
-    height = 5000
+    width = int(input("Enter the Image Width : "))  #width  = 4537
+    height = int(input("Enter the Image Height : ")) #height = 5000
     
     return width, height
+
 def get_output_image_path(output_file_name):
-    return "processed_images\\" + output_file_name + ".jpg"
+    return r"C:\github\image_processing_python\raw_images(after noise addition)\\" + output_file_name + ".jpg"
     
 def main():
     
