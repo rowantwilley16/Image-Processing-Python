@@ -8,6 +8,8 @@ Created on Mon May 22 12:56:13 2023
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
+import tkinter as tk
+from tkinter import filedialog
 
 def split_img_into_channels(image):
     
@@ -19,10 +21,10 @@ def split_img_into_channels(image):
     red_image = image_array.copy()
     blue_image = image_array.copy()
     green_image = image_array.copy()
-    
+     
     #red 
     red_image[:, :, 1] = 0  
-    red_image[:, :, 2] = 0  
+    red_image[:, :, 2] = 0 
     #green 
     green_image[:, :, 0] = 0  
     green_image[:, :, 2] = 0
@@ -61,6 +63,7 @@ def display_seperate_RGB_images(image_array, red_image,green_image,blue_image):
     plt.imshow(blue_image)
     plt.title('Blue Channel')
     plt.axis('off')
+    
 def print_line_scanned_image(updating_image):
     
     plt.figure(2,figsize=(100,4),dpi=(200))
@@ -106,7 +109,7 @@ def scan_image(image_array,red_image,blue_image,green_image):
     #loop can be thought of as a time period that has passed. We can see that 
     #the range starts way before the imaging area and then ends way after the imaging area. 
     
-    for current_row_index in range(6000, 2000, -1):
+    for current_row_index in range(6000, -1000, -1):
         
         if current_row_index + RED_FILTER_LOC <= IMAGING_AREA:
             updating_image[current_row_index,:,0] = red_image[current_row_index,:,0]
@@ -119,10 +122,20 @@ def scan_image(image_array,red_image,blue_image,green_image):
                                                                                    ]
     print_line_scanned_image(updating_image)
     
+def image_selector():
+
+    root = tk.Tk()
+    root.withdraw()
+    root.focus_force()
+    root.attributes("-topmost",True)
+    image_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.jpg;*.jpeg")])
+
+    return image_path
+
 def main():
     
     # Open the image file
-    image_path = r"processed_images\raw_sat_img.jpg"  
+    image_path = image_selector()  
     image = Image.open(image_path)    
     
     image_array,red_image,green_image,blue_image = split_img_into_channels(image)
